@@ -1,4 +1,5 @@
 # Contributors
 
+- Joaquín Palacio Feijóo
+- Nahuel Nicolas Alvarez
 - Tomás Macrade
-- Nahuel Nicolás Alvarez

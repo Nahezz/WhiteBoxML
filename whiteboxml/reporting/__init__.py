@@ -5,6 +5,6 @@ Reporting: Conjunto de reportes y visualizaciones de WhiteBoxML.
 :date: 15/04/2026
 """
 
-from . import reportes, visualizacion
+from .reportes import classification_summary, regression_summary
 
-__all__ = ["reportes", "visualizacion"]
+__all__ = ["classification_summary", "regression_summary"]
