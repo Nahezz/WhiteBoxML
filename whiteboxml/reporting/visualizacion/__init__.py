@@ -1,6 +1,6 @@
 """
-Submódulo de visualización de WhiteBoxML.
+Visualización: Módulo de visualización de WhiteBoxML.
 
-:authors: WhiteBoxML Contributors
+:authors: Nahuel Nicolas Alvarez
 :date: 15/04/2026
 """
