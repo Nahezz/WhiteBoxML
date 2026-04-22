@@ -6,5 +6,10 @@ Reporting: Conjunto de reportes y visualizaciones de WhiteBoxML.
 """
 
 from .reportes import summary
+from .visualizacion import confusion_matrix, plot_confusion_matrix
 
-__all__ = ["summary"]
+__all__ = [
+    "summary",
+    "confusion_matrix",
+    "plot_confusion_matrix",
+]
