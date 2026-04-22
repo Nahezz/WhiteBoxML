@@ -23,6 +23,7 @@ def test_report_classification_perfect():
             "Accuracy": [1.0],
             "Precision": [1.0],
             "Recall": [1.0],
+            "F1": [1.0],
         }
     )
 
@@ -69,6 +70,7 @@ def test_report_classification_imperfect():
             "Accuracy": [0.5],
             "Precision": [1 / 3],
             "Recall": [1.0],
+            "F1": [0.5],
         }
     )
 
@@ -115,6 +117,7 @@ def test_report_classification_macro():
             "Accuracy": [0.5],
             "Precision": [2 / 3],
             "Recall": [2 / 3],
+            "F1": [0.5],
         }
     )
 
@@ -138,6 +141,7 @@ def test_report_classification_micro():
             "Accuracy": [0.5],
             "Precision": [0.5],
             "Recall": [0.5],
+            "F1": [0.5],
         }
     )
 

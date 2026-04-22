@@ -8,6 +8,7 @@ Para clasificación incluye:
 - Accuracy
 - Precision
 - Recall
+- F1 Score
 
 Para regresión incluye:
 - Mean Squared Error (MSE)
@@ -39,6 +40,7 @@ def classification_summary(
     - Accuracy
     - Precision
     - Recall
+    - F1 Score
 
     :param y_true: targets reales
     :param y_pred: targets predichos
@@ -52,12 +54,14 @@ def classification_summary(
 
     precision = metricas.precision(y_true, y_pred, average=average, pos_label=pos_label)
     recall = metricas.recall(y_true, y_pred, average=average, pos_label=pos_label)
+    f1 = metricas.f1_score(y_true, y_pred, average=average, pos_label=pos_label)
 
     return pd.DataFrame(
         {
             "Accuracy": [accuracy],
             "Precision": [precision],
             "Recall": [recall],
+            "F1": [f1],
         }
     )
 
