@@ -9,6 +9,7 @@ Para clasificación incluye:
 - Accuracy
 - Precision
 - Recall
+- F1 Score
 
 Para regresión incluye:
 - Mean Squared Error (MSE)
@@ -83,24 +84,32 @@ def _classification_summary(
     y_true: np.ndarray, y_pred: np.ndarray, average: str
 ) -> pd.DataFrame:
     """
-    Genera el reporte de métricas de clasificación.
+    Generación de reporte de métricas de clasificación.
+
+    Incluye:
+    - Accuracy
+    - Precision
+    - Recall
+    - F1 Score
 
     :param y_true: targets reales
     :param y_pred: targets predichos
     :param average: tipo de promedio para precision y recall
-    :return: DataFrame con Accuracy, Precision y Recall
+    :return: DataFrame con Accuracy, Precision, Recall y F1
     :authors: Joaquín Palacio Feijóo
     :date: 21/04/2026
     """
     accuracy = metricas.accuracy(y_true, y_pred)
     precision = metricas.precision(y_true, y_pred, average=average)
     recall = metricas.recall(y_true, y_pred, average=average)
+    f1 = metricas.f1_score(y_true, y_pred, average=average)
 
     return pd.DataFrame(
         {
             "Accuracy": [accuracy],
             "Precision": [precision],
             "Recall": [recall],
+            "F1": [f1],
         }
     )
 

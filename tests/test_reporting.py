@@ -24,6 +24,7 @@ def test_summary_classification_perfect():
             "Accuracy": [1.0],
             "Precision": [1.0],
             "Recall": [1.0],
+            "F1": [1.0],
         }
     )
 
@@ -46,6 +47,7 @@ def test_summary_classification_imperfect():
             "Accuracy": [0.5],
             "Precision": [1 / 3],
             "Recall": [1.0],
+            "F1": [0.5],
         }
     )
 
@@ -68,6 +70,7 @@ def test_summary_classification_explicit_mode():
             "Accuracy": [1.0],
             "Precision": [1.0],
             "Recall": [1.0],
+            "F1": [1.0],
         }
     )
 
@@ -90,6 +93,7 @@ def test_summary_multiclass_auto():
             "Accuracy": [1.0],
             "Precision": [1.0],
             "Recall": [1.0],
+            "F1": [1.0],
         }
     )
 
@@ -112,6 +116,7 @@ def test_summary_multiclass_imperfect():
             "Accuracy": [0.5],
             "Precision": [1 / 3],
             "Recall": [1.0],
+            "F1": [0.5],
         }
     )
 
@@ -194,6 +199,7 @@ def test_summary_auto_detects_classification_from_int():
     assert "Accuracy" in df.columns
     assert "Precision" in df.columns
     assert "Recall" in df.columns
+    assert "F1" in df.columns
 
 
 def test_summary_auto_detects_regression_from_float():
