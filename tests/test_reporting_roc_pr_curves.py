@@ -89,13 +89,13 @@ def test_plot_roc_curve_runs():
     """
     Test que el plot de ROC se ejecuta sin errores
     :authors: Claudio Gabriel Alonso
-    :date: 21/04/2026
+    :date: 29/04/2026
     """
 
     y_true = [0, 1, 0, 1]
     y_pred_proba = [0.2, 0.8, 0.4, 0.6]
 
-    try:
-        plot_roc_curve(y_true, y_pred_proba)
-    except Exception as e:
-        raise AssertionError(f"El plot falló: {e}") from e
+    fig, ax = plot_roc_curve(y_true, y_pred_proba, show=False)
+
+    assert fig is not None
+    assert ax is not None

@@ -5,6 +5,8 @@ Módulo para cálculo y visualización de curvas ROC.
 :date: 21/04/2026
 """
 
+from typing import Optional, Tuple
+
 import matplotlib.pyplot as plt
 import numpy as np
 from numpy.typing import ArrayLike
@@ -66,32 +68,40 @@ def calculate_roc_curve(
 
 
 def plot_roc_curve(
-    y_true: ArrayLike, y_pred_proba: ArrayLike, show_diagonal: bool = True
-) -> None:
+    y_true: ArrayLike,
+    y_pred_proba: ArrayLike,
+    show_diagonal: bool = True,
+    show: bool = True,
+) -> Optional[Tuple[plt.Figure, plt.Axes]]:
     """
     Calcula y grafica la curva ROC a partir de los datos de entrada.
 
     :param y_true: Array de etiquetas reales (0 o 1).
     :param y_pred_proba: Array de probabilidades estimadas.
     :param show_diagonal: Si True, muestra la línea base.
-    :return: None.
+    :param show: Si True, muestra el gráfico. Si False, devuelve la figura.
+    :return: fig, ax si show=False, caso contrario None.
 
     :authors: Claudio Gabriel Alonso
-    :date: 20/04/2026
+    :date: 29/04/2026
     """
 
     fpr, tpr, _ = calculate_roc_curve(y_true, y_pred_proba)
     auc = calculate_auc(fpr, tpr)
 
-    plt.figure()
-    plt.plot(fpr, tpr, label=f"AUC = {auc:.4f}")
+    fig, ax = plt.subplots()
+    ax.plot(fpr, tpr, label=f"AUC = {auc:.4f}")
 
     if show_diagonal:
-        plt.plot([0, 1], [0, 1], linestyle="--")
+        ax.plot([0, 1], [0, 1], linestyle="--")
 
-    plt.xlabel("False Positive Rate")
-    plt.ylabel("True Positive Rate")
-    plt.title("ROC Curve")
-    plt.legend()
-    plt.grid()
-    plt.show()
+    ax.set_xlabel("False Positive Rate")
+    ax.set_ylabel("True Positive Rate")
+    ax.set_title("ROC Curve")
+    ax.legend()
+    ax.grid()
+
+    if show:
+        plt.show()
+        return None
+    return fig, ax
