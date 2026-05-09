@@ -20,7 +20,7 @@ def calculate_auc(fpr: ArrayLike, tpr: ArrayLike) -> float:
     :param tpr: True Positive Rate.
     :return: Valor del AUC.
 
-    :authors: Claudio Gabriel Alonso
+    :authors: Claudio Gabriel Alonso, Fernanda Alcaraz
     :date: 20/04/2026
     """
 
@@ -99,6 +99,95 @@ def plot_roc_curve(
     ax.set_ylabel("True Positive Rate")
     ax.set_title("ROC Curve")
     ax.legend()
+    ax.grid()
+
+    if show:
+        plt.show()
+        return None
+    return fig, ax
+
+
+def calculate_precision_recall_curve(y_true, y_pred_proba):
+    """
+    Calcular la curva de Precision-Recall.
+
+    :param y_true: Array de etiquetas reales (0 o 1).
+    :param y_pred_proba: Array de probabilidades estimadas.
+    :return: Tupla (recall, precision, thresholds).
+
+    :authors: Fernanda Alcaraz
+    :date: 09/05/2026
+    """
+
+    y_true = np.asarray(y_true)
+    y_pred_proba = np.asarray(y_pred_proba)
+
+    thresholds = sorted(
+        set(y_pred_proba),
+        reverse=True,
+    )
+
+    precision = [1.0]
+    recall = [0.0]
+
+    positives = sum(y_true)
+
+    for threshold in thresholds:
+        y_pred = [1 if p >= threshold else 0 for p in y_pred_proba]
+
+        tp = sum(
+            yt == 1 and yp == 1
+            for yt, yp in zip(
+                y_true,
+                y_pred,
+            )
+        )
+
+        fp = sum(
+            yt == 0 and yp == 1
+            for yt, yp in zip(
+                y_true,
+                y_pred,
+            )
+        )
+
+        if tp + fp > 0:
+            prec = tp / (tp + fp)
+        else:
+            prec = 1.0
+
+        rec = tp / positives
+
+        precision.append(prec)
+        recall.append(rec)
+
+    return recall, precision, thresholds
+
+
+def plot_pr_curve(
+    y_true: ArrayLike,
+    y_pred_proba: ArrayLike,
+    show: bool = True,
+) -> Optional[Tuple[plt.Figure, plt.Axes]]:
+    """
+    Calcula y grafica la curva PR a partir de los datos de entrada.
+
+    :param y_true: Array de etiquetas reales (0 o 1).
+    :param y_pred_proba: Array de probabilidades estimadas.
+    :param show: Si True, muestra el gráfico. Si False, devuelve la figura.
+    :return: fig, ax si show=False, caso contrario None.
+
+    :authors: Fernanda Alcaraz
+    :date: 09/05/2026
+    """
+
+    recall, precision, _ = calculate_precision_recall_curve(y_true, y_pred_proba)
+
+    fig, ax = plt.subplots()
+    ax.plot(recall, precision)
+    ax.set_xlabel("Recall")
+    ax.set_ylabel("Precision")
+    ax.set_title("Precision-Recall Curve")
     ax.grid()
 
     if show:
