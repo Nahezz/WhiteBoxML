@@ -1,7 +1,7 @@
 """
-Tests del módulo ROC.
+Tests del módulo ROC y PR.
 
-:authors: Claudio Gabriel Alonso
+:authors: Claudio Gabriel Alonso, Fernanda Alcaraz
 :date: 21/04/2026
 """
 
@@ -10,7 +10,9 @@ import numpy as np
 
 from whiteboxml.reporting.visualizacion.roc_pr_curves import (
     calculate_auc,
+    calculate_precision_recall_curve,
     calculate_roc_curve,
+    plot_pr_curve,
     plot_roc_curve,
 )
 
@@ -96,6 +98,41 @@ def test_plot_roc_curve_runs():
     y_pred_proba = [0.2, 0.8, 0.4, 0.6]
 
     fig, ax = plot_roc_curve(y_true, y_pred_proba, show=False)
+
+    assert fig is not None
+    assert ax is not None
+
+
+def test_pr_curve_basic():
+    """
+    Test básico de la curva PR
+    """
+
+    y_true = [0, 0, 1, 1]
+    y_pred_proba = [0.1, 0.4, 0.35, 0.8]
+
+    recall, precision, thresholds = calculate_precision_recall_curve(
+        y_true,
+        y_pred_proba,
+    )
+
+    assert len(recall) == len(precision)
+    assert len(recall) >= len(thresholds)
+
+
+def test_plot_pr_curve_runs():
+    """
+    Test del plot de PR
+    """
+
+    y_true = [0, 1, 0, 1]
+    y_pred_proba = [0.2, 0.8, 0.4, 0.6]
+
+    fig, ax = plot_pr_curve(
+        y_true,
+        y_pred_proba,
+        show=False,
+    )
 
     assert fig is not None
     assert ax is not None
